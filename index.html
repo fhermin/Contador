@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuenta regresiva para el 21 de diciembre</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: #333;
+            text-align: center;
+            flex-direction: column;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .contador {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .tiempo {
+            background: white;
+            border-radius: 8px;
+            padding: 15px 20px;
+            width: 100px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .numero {
+            font-size: 2.5em;
+            margin: 0;
+            font-weight: bold;
+        }
+
+        .etiqueta {
+            font-size: 0.9em;
+            margin-top: 5px;
+            letter-spacing: 1px;
+            color: #666;
+        }
+
+        .separador {
+            font-size: 2em;
+            color: #333;
+        }
+
+        .boton-prueba {
+            padding: 10px 20px;
+            background-color: #0072ff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+
+        .boton-prueba:hover {
+            background-color: #005bb5;
+        }
+    </style>
+    <script>
+        let fechaObjetivo;
+
+        function actualizarContador() {
+            const hoy = new Date();
+            const diferencia = fechaObjetivo - hoy;
+
+            if (diferencia <= 0) {
+                document.getElementById('resultado').textContent = '¡Ya es 21 de diciembre o la fecha ya ha pasado!';
+                clearInterval(intervalo);
+                return;
+            }
+
+            const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+            const horas = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutos = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
+            const segundos = Math.floor((diferencia % (1000 * 60)) / 1000);
+
+            document.getElementById('dias').textContent = String(dias).padStart(2, '0');
+            document.getElementById('horas').textContent = String(horas).padStart(2, '0');
+            document.getElementById('minutos').textContent = String(minutos).padStart(2, '0');
+            document.getElementById('segundos').textContent = String(segundos).padStart(2, '0');
+            document.getElementById('resultado').textContent = '';
+        }
+
+        function simularFechaPasada() {
+            fechaObjetivo = new Date(Date.now() - 1000); // Fecha pasada (1 segundo antes del presente)
+            actualizarContador();
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            fechaObjetivo = new Date(new Date().getFullYear(), 11, 21, 0, 0, 0); // 21 de diciembre de este año
+            actualizarContador();
+        });
+
+        const intervalo = setInterval(actualizarContador, 1000);
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Cuenta Regresiva</h1>
+        <div class="contador">
+            <div class="tiempo">
+                <p class="numero" id="dias">00</p>
+                <p class="etiqueta">Días</p>
+            </div>
+            <span class="separador">:</span>
+            <div class="tiempo">
+                <p class="numero" id="horas">00</p>
+                <p class="etiqueta">Horas</p>
+            </div>
+            <span class="separador">:</span>
+            <div class="tiempo">
+                <p class="numero" id="minutos">00</p>
+                <p class="etiqueta">Minutos</p>
+            </div>
+            <span class="separador">:</span>
+            <div class="tiempo">
+                <p class="numero" id="segundos">00</p>
+                <p class="etiqueta">Segundos</p>
+            </div>
+        </div>
+        <button class="boton-prueba" onclick="simularFechaPasada()">Simular 21 de diciembre</button>
+        <p id="resultado"></p>
+    </div>
+</body>
+</html>
