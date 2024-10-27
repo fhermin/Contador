@@ -16,6 +16,7 @@
             color: #333;
             text-align: center;
             flex-direction: column;
+            overflow: hidden;
         }
 
         .container {
@@ -79,6 +80,54 @@
         .boton-prueba:hover {
             background-color: #005bb5;
         }
+
+        .trompeta {
+            position: absolute;
+            width: 100px;
+            transform: rotate(45deg);
+            animation: moverTrompeta 1s infinite ease-in-out;
+        }
+
+        .trompeta.izquierda {
+            top: 10px;
+            left: 10px;
+            transform: rotate(-20deg);
+        }
+
+        .trompeta.derecha {
+            top: 10px;
+            right: 10px;
+            transform: rotate(20deg);
+        }
+
+        @keyframes moverTrompeta {
+            0%, 100% {
+                transform: scale(1) rotate(20deg);
+            }
+            50% {
+                transform: scale(1.1) rotate(20deg);
+            }
+        }
+
+        .confetti {
+            position: fixed;
+            width: 5px;
+            height: 15px;
+            background-color: #ff0;
+            animation: caer 5s infinite ease-in;
+            opacity: 0;
+        }
+
+        @keyframes caer {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
     </style>
     <script>
         let fechaObjetivo;
@@ -90,6 +139,7 @@
             if (diferencia <= 0) {
                 document.getElementById('resultado').textContent = '¡Ya es 21 de diciembre o la fecha ya ha pasado!';
                 clearInterval(intervalo);
+                mostrarCelebracion();
                 return;
             }
 
@@ -110,8 +160,37 @@
             actualizarContador();
         }
 
+        function mostrarCelebracion() {
+            // Mostrar trompetas
+            const trompetaIzquierda = document.createElement('img');
+            trompetaIzquierda.src = 'src/trump.png'; 
+            trompetaIzquierda.classList.add('trompeta', 'izquierda');
+            document.body.appendChild(trompetaIzquierda);
+
+            const trompetaDerecha = document.createElement('img');
+            trompetaDerecha.src = 'src/trump2.png'; // la misma pero volteada
+            trompetaDerecha.classList.add('trompeta', 'derecha');
+            document.body.appendChild(trompetaDerecha);
+
+            // Mostrar confetti
+            for (let i = 0; i < 100; i++) {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                confetti.style.left = `${Math.random() * 100}vw`;
+                confetti.style.backgroundColor = getRandomColor();
+                confetti.style.animationDelay = `${Math.random() * 3}s`;
+                confetti.style.animationDuration = `${Math.random() * 2 + 3}s`; // Duración entre 3 y 5 segn
+                document.body.appendChild(confetti);
+            }
+        }
+
+        function getRandomColor() {
+            const colors = ['#FF0', '#FF5733', '#33FF57', '#3357FF', '#F33', '#3F3', '#33F'];
+            return colors[Math.floor(Math.random() * colors.length)];
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
-            fechaObjetivo = new Date(new Date().getFullYear(), 11, 21, 0, 0, 0); // 21 de diciembre de este año
+            fechaObjetivo = new Date(new Date().getFullYear(), 11, 21, 0, 0, 0); // 21 de diciembre de este año presente mi chuki
             actualizarContador();
         });
 
