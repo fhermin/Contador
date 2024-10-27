@@ -38,16 +38,16 @@
 
         function mostrarCelebracion() {
             const trompetaIzquierda = document.createElement('img');
-            trompetaIzquierda.src = 'src/trump.png'; // Cambia a la URL de tu imagen de trompeta
+            trompetaIzquierda.src = 'src/trump.png'; 
             trompetaIzquierda.classList.add('trompeta', 'izquierda');
             document.body.appendChild(trompetaIzquierda);
 
             const trompetaDerecha = document.createElement('img');
-            trompetaDerecha.src = 'src/trump2.png'; // Cambia a la URL de tu imagen de trompeta
+            trompetaDerecha.src = 'src/trump2.png'; // La misma pero volteada
             trompetaDerecha.classList.add('trompeta', 'derecha');
             document.body.appendChild(trompetaDerecha);
 
-            for (let i = 0; i < 100; i++) {
+            for (let i = 0; i < 100; i++) {   // No me acuerdo de donde robe esto pero gracias
                 const confetti = document.createElement('div');
                 confetti.classList.add('confetti');
                 confetti.style.left = `${Math.random() * 100}vw`;
@@ -64,7 +64,7 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            fechaObjetivo = new Date(new Date().getFullYear(), 11, 21, 0, 0, 0); // 21 de diciembre de este año
+            fechaObjetivo = new Date(new Date().getFullYear(), 11, 21, 0, 0, 0); // 21 de diciembre de este año presente mi chucki
             actualizarContador();
         });
 
