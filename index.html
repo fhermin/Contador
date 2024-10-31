@@ -1,102 +1,121 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cuenta regresiva para el 21 de diciembre</title>
-    <link rel="stylesheet" href="styles.css">
-    <script>
-        let fechaObjetivo;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cuenta Regresiva con Efecto de Rejas</title>
+  <link rel="stylesheet" href="styles.css"> <!-- Enlace al archivo CSS externo -->
+  <script>
+    let fechaObjetivo;
+    let intervalo;
 
-        function actualizarContador() {
-            const hoy = new Date();
-            const diferencia = fechaObjetivo - hoy;
+    function actualizarContador() {
+        const hoy = new Date();
+        const diferencia = fechaObjetivo - hoy;
 
-            if (diferencia <= 0) {
-                document.getElementById('resultado').textContent = '¡Ya es 21 de diciembre o la fecha ya ha pasado!';
-                clearInterval(intervalo);
-                mostrarCelebracion();
-                return;
-            }
-
-            const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
-            const horas = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutos = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
-            const segundos = Math.floor((diferencia % (1000 * 60)) / 1000);
-
-            document.getElementById('dias').textContent = String(dias).padStart(2, '0');
-            document.getElementById('horas').textContent = String(horas).padStart(2, '0');
-            document.getElementById('minutos').textContent = String(minutos).padStart(2, '0');
-            document.getElementById('segundos').textContent = String(segundos).padStart(2, '0');
-            document.getElementById('resultado').textContent = '';
+        if (diferencia <= 0) {
+            document.getElementById('resultado').textContent = '¡Ya es 21 de diciembre o la fecha ya ha pasado!';
+            clearInterval(intervalo);
+            mostrarCelebracion();
+            return;
         }
 
-        function simularFechaPasada() {
-            fechaObjetivo = new Date(Date.now() - 1000); // Fecha pasada (1 segundo antes del presente)
-            actualizarContador();
+        const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+        const horas = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutos = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
+        const segundos = Math.floor((diferencia % (1000 * 60)) / 1000);
+
+        document.getElementById('dias').textContent = String(dias).padStart(2, '0');
+        document.getElementById('horas').textContent = String(horas).padStart(2, '0');
+        document.getElementById('minutos').textContent = String(minutos).padStart(2, '0');
+        document.getElementById('segundos').textContent = String(segundos).padStart(2, '0');
+        document.getElementById('resultado').textContent = '';
+    }
+
+    function simularFechaPasada() {
+        // Configura `fechaObjetivo` a un segundo en el pasado
+        fechaObjetivo = new Date(Date.now() - 1000); 
+
+        // Detener cualquier intervalo existente
+        clearInterval(intervalo);
+
+        // Actualiza el contador inmediatamente para reflejar el cambio
+        actualizarContador();
+
+        // Reiniciar el intervalo para mantener la consistencia de la cuenta regresiva
+        intervalo = setInterval(actualizarContador, 1000);
+    }
+
+    function mostrarCelebracion() {
+        const trompetaIzquierda = document.createElement('img');
+        trompetaIzquierda.src = 'src/trump.png'; // Cambia a la URL de tu imagen de trompeta
+        trompetaIzquierda.classList.add('trompeta', 'izquierda');
+        document.body.appendChild(trompetaIzquierda);
+
+        const trompetaDerecha = document.createElement('img');
+        trompetaDerecha.src = 'src/trump2.png'; // Cambia a la URL de tu imagen de trompeta
+        trompetaDerecha.classList.add('trompeta', 'derecha');
+        document.body.appendChild(trompetaDerecha);
+
+        for (let i = 0; i < 100; i++) {
+            const confetti = document.createElement('div');
+            confetti.classList.add('confetti');
+            confetti.style.left = `${Math.random() * 100}vw`;
+            confetti.style.backgroundColor = getRandomColor();
+            confetti.style.animationDelay = `${Math.random() * 3}s`;
+            confetti.style.animationDuration = `${Math.random() * 2 + 3}s`; // Duración entre 3 y 5 segundos
+            document.body.appendChild(confetti);
         }
+    }
 
-        function mostrarCelebracion() {
-            const trompetaIzquierda = document.createElement('img');
-            trompetaIzquierda.src = 'src/trump.png'; 
-            trompetaIzquierda.classList.add('trompeta', 'izquierda');
-            document.body.appendChild(trompetaIzquierda);
+    function getRandomColor() {
+        const colors = ['#FF0', '#FF5733', '#33FF57', '#3357FF', '#F33', '#3F3', '#33F'];
+        return colors[Math.floor(Math.random() * colors.length)];
+    }
 
-            const trompetaDerecha = document.createElement('img');
-            trompetaDerecha.src = 'src/trump2.png'; // La misma pero volteada
-            trompetaDerecha.classList.add('trompeta', 'derecha');
-            document.body.appendChild(trompetaDerecha);
-
-            for (let i = 0; i < 100; i++) {   // No me acuerdo de donde robe esto pero gracias
-                const confetti = document.createElement('div');
-                confetti.classList.add('confetti');
-                confetti.style.left = `${Math.random() * 100}vw`;
-                confetti.style.backgroundColor = getRandomColor();
-                confetti.style.animationDelay = `${Math.random() * 3}s`;
-                confetti.style.animationDuration = `${Math.random() * 2 + 3}s`; // Duración entre 3 y 5 segundos
-                document.body.appendChild(confetti);
-            }
-        }
-
-        function getRandomColor() {
-            const colors = ['#FF0', '#FF5733', '#33FF57', '#3357FF', '#F33', '#3F3', '#33F'];
-            return colors[Math.floor(Math.random() * colors.length)];
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            fechaObjetivo = new Date(new Date().getFullYear(), 11, 21, 0, 0, 0); // 21 de diciembre de este año presente mi chucki
-            actualizarContador();
-        });
-
-        const intervalo = setInterval(actualizarContador, 1000);
-    </script>
+    document.addEventListener('DOMContentLoaded', () => {
+        fechaObjetivo = new Date(new Date().getFullYear(), 11, 21, 0, 0, 0); // 21 de diciembre de este año
+        actualizarContador();
+        intervalo = setInterval(actualizarContador, 1000);
+    });
+  </script>
 </head>
 <body>
-    <div class="container">
-        <h1>Cuenta Regresiva</h1>
-        <div class="contador">
-            <div class="tiempo">
-                <p class="numero" id="dias">00</p>
-                <p class="etiqueta">Días</p>
-            </div>
-            <span class="separador">:</span>
-            <div class="tiempo">
-                <p class="numero" id="horas">00</p>
-                <p class="etiqueta">Horas</p>
-            </div>
-            <span class="separador">:</span>
-            <div class="tiempo">
-                <p class="numero" id="minutos">00</p>
-                <p class="etiqueta">Minutos</p>
-            </div>
-            <span class="separador">:</span>
-            <div class="tiempo">
-                <p class="numero" id="segundos">00</p>
-                <p class="etiqueta">Segundos</p>
-            </div>
-        </div>
-        <button class="boton-prueba" onclick="simularFechaPasada()">Simular 21 de diciembre</button>
-        <p id="resultado"></p>
-    </div>
+  <!-- Contenedor del contador de cuenta regresiva -->
+  <div class="container">
+      <h1>Cuenta Regresiva</h1>
+      <div class="contador">
+          <div class="tiempo">
+              <p class="numero" id="dias">00</p>
+              <p class="etiqueta">Días</p>
+          </div>
+          <span class="separador">:</span>
+          <div class="tiempo">
+              <p class="numero" id="horas">00</p>
+              <p class="etiqueta">Horas</p>
+          </div>
+          <span class="separador">:</span>
+          <div class="tiempo">
+              <p class="numero" id="minutos">00</p>
+              <p class="etiqueta">Minutos</p>
+          </div>
+          <span class="separador">:</span>
+          <div class="tiempo">
+              <p class="numero" id="segundos">00</p>
+              <p class="etiqueta">Segundos</p>
+          </div>
+      </div>
+      <button class="boton-prueba" onclick="simularFechaPasada()">Simular 21 de diciembre</button>
+      <p id="resultado"></p>
+  </div>
+
+  <!-- Contenedor de las rejas de cárcel -->
+  <div class="reja-container">
+      <!-- Rejas izquierda y derecha en dos filas cada una -->
+      <div class="reja reja-izquierda fila-1"></div>
+      <div class="reja reja-izquierda fila-2"></div>
+      <div class="reja reja-derecha fila-1"></div>
+      <div class="reja reja-derecha fila-2"></div>
+  </div>
 </body>
 </html>
