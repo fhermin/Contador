@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cuenta Regresiva con Efecto de Rejas</title>
+  <title>Articulo 78</title>
   <link rel="stylesheet" href="styles.css"> <!-- Enlace al archivo CSS externo -->
   <script>
     let fechaObjetivo;
@@ -36,14 +36,9 @@
         // Configura `fechaObjetivo` a un segundo en el pasado
         fechaObjetivo = new Date(Date.now() - 1000); 
 
-        // Detener cualquier intervalo existente
+        // Reinicia el contador para reflejar la simulación
         clearInterval(intervalo);
-
-        // Actualiza el contador inmediatamente para reflejar el cambio
         actualizarContador();
-
-        // Reiniciar el intervalo para mantener la consistencia de la cuenta regresiva
-        intervalo = setInterval(actualizarContador, 1000);
     }
 
     function mostrarCelebracion() {
@@ -105,17 +100,13 @@
               <p class="etiqueta">Segundos</p>
           </div>
       </div>
-      <button class="boton-prueba" onclick="simularFechaPasada()">Simular 21 de diciembre</button>
-      <p id="resultado"></p>
+
   </div>
 
   <!-- Contenedor de las rejas de cárcel -->
   <div class="reja-container">
-      <!-- Rejas izquierda y derecha en dos filas cada una -->
-      <div class="reja reja-izquierda fila-1"></div>
-      <div class="reja reja-izquierda fila-2"></div>
-      <div class="reja reja-derecha fila-1"></div>
-      <div class="reja reja-derecha fila-2"></div>
+      <div class="reja reja-izquierda"></div>
+      <div class="reja reja-derecha"></div>
   </div>
 </body>
 </html>

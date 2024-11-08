@@ -3,67 +3,63 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Efecto de Rejas de Cárcel</title>
-  <style>
-    /* Estilos generales de la página */
-    body, html {
-      margin: 0;
-      padding: 0;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background-color: #f0f0f0; /* Fondo claro */
-      overflow: hidden;
+  <title>Cuenta Regresiva con Efecto de Rejas y Cerrojo</title>
+  <link rel="stylesheet" href="styles.css"> <!-- Enlace al archivo CSS externo -->
+  <script>
+    function iniciarAnimacionCerrojo() {
+        const cerrojo = document.querySelector('.cerrojo');
+        cerrojo.classList.add('girar-cerrojo');
+        
+        // Abrir la reja derecha después de que el cerrojo complete su rotación
+        cerrojo.addEventListener('animationend', () => {
+            const rejaDerecha = document.querySelector('.reja-derecha');
+            rejaDerecha.classList.add('abrir-reja');
+            cerrojo.classList.add('mover-cerrojo');
+        });
     }
 
-    /* Contenedor de las rejas */
-    .reja-container {
-      position: relative;
-      width: 100vw;
-      height: 100vh;
-    }
-
-    /* Estilos de las rejas */
-    .reja {
-      position: absolute;
-      width: 50%; /* Cada reja ocupa la mitad de la pantalla */
-      height: 100%;
-      background-color: #333; /* Color de fondo oscuro para simular las rejas */
-      background-image: linear-gradient(to right, white 2px, transparent 2px);
-      background-size: 20px 100%; /* Define el ancho de cada barra */
-    }
-
-    /* Reja izquierda */
-    .reja-izquierda {
-      left: 0;
-      animation: abrirIzquierda 2s forwards;
-    }
-
-    /* Reja derecha */
-    .reja-derecha {
-      right: 0;
-      animation: abrirDerecha 2s forwards;
-    }
-
-    /* Animación de apertura hacia la izquierda */
-    @keyframes abrirIzquierda {
-      from { transform: translateX(0); }
-      to { transform: translateX(-100%); }
-    }
-
-    /* Animación de apertura hacia la derecha */
-    @keyframes abrirDerecha {
-      from { transform: translateX(0); }
-      to { transform: translateX(100%); }
-    }
-  </style>
+    document.addEventListener('DOMContentLoaded', () => {
+        iniciarAnimacionCerrojo(); // Inicia la animación del cerrojo al cargar la página
+    });
+  </script>
 </head>
 <body>
+  <!-- Contenedor del contador de cuenta regresiva -->
+  <div class="container">
+      <h1>Cuenta Regresiva</h1>
+      <div class="contador">
+          <div class="tiempo">
+              <p class="numero" id="dias">00</p>
+              <p class="etiqueta">Días</p>
+          </div>
+          <span class="separador">:</span>
+          <div class="tiempo">
+              <p class="numero" id="horas">00</p>
+              <p class="etiqueta">Horas</p>
+          </div>
+          <span class="separador">:</span>
+          <div class="tiempo">
+              <p class="numero" id="minutos">00</p>
+              <p class="etiqueta">Minutos</p>
+          </div>
+          <span class="separador">:</span>
+          <div class="tiempo">
+              <p class="numero" id="segundos">00</p>
+              <p class="etiqueta">Segundos</p>
+          </div>
+      </div>
+  </div>
+
+  <!-- Cerrojo de bóveda pegado a la reja derecha -->
+  <div class="cerrojo"></div>
+
+  <!-- Contenedor de las rejas de cárcel -->
   <div class="reja-container">
-    <!-- Rejas izquierda y derecha -->
-    <div class="reja reja-izquierda"></div>
-    <div class="reja reja-derecha"></div>
+      <!-- Rejas izquierda y derecha en dos filas cada una -->
+      <div class="reja reja-izquierda fila-1"></div>
+      <div class="reja reja-izquierda fila-2"></div>
+      <div class="reja reja-derecha fila-1"></div>
+      <div class="reja reja-derecha fila-2"></div>
   </div>
 </body>
 </html>
