@@ -6,8 +6,9 @@ body, html {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #f0f0f0; /* Fondo claro */
+    background-color: #f0f0f0;
     overflow: hidden;
+    font-size: calc(1vw + 1vh); /* Tamaño de fuente adaptable */
 }
 
 /* Contenedor de las rejas */
@@ -17,19 +18,19 @@ body, html {
     left: 0;
     width: 100vw;
     height: 100vh;
-    z-index: 10; /* Asegura que las rejas estén frente al contador */
-    pointer-events: none; /* Evita que las rejas bloqueen el clic en el botón */
+    z-index: 10;
+    pointer-events: none;
 }
 
 /* Estilos de las rejas */
 .reja {
     position: absolute;
-    width: 50%; /* Cada reja ocupa la mitad de la pantalla */
+    width: 50%;
     height: 100%;
-    background-color: #333; /* Color de fondo oscuro para simular las rejas */
-    background-image: linear-gradient(to right, white 4px, transparent 4px); /* Aumenta el espesor de los barrotes */
-    background-size: 40px 100%; /* Define el ancho de cada barra */
-    animation-fill-mode: forwards; /* Mantiene la animación al final */
+    background-color: #333;
+    background-image: linear-gradient(to right, white 0.5vw, transparent 0.5vw);
+    background-size: calc(2vw + 20px) 100%;
+    animation-fill-mode: forwards;
 }
 
 /* Barrotes horizontales */
@@ -37,16 +38,16 @@ body, html {
     content: '';
     position: absolute;
     width: 100%;
-    height: 6px; /* Grosor de los barrotes horizontales */
+    height: 0.4vh;
     background-color: white;
 }
 
 .reja::before {
-    top: 33%; /* Posición del primer barrote horizontal */
+    top: 33%;
 }
 
 .reja::after {
-    top: 66%; /* Posición del segundo barrote horizontal */
+    top: 66%;
 }
 
 /* Ajustes para las filas de rejas */
@@ -63,13 +64,13 @@ body, html {
 /* Reja izquierda */
 .reja-izquierda {
     left: 0;
-    animation: abrirIzquierda 6s forwards; /* Velocidad más lenta */
+    animation: abrirIzquierda 6s forwards;
 }
 
 /* Reja derecha */
 .reja-derecha {
     right: 0;
-    animation: abrirDerecha 6s forwards; /* Velocidad más lenta */
+    animation: abrirDerecha 6s forwards;
 }
 
 /* Animación de apertura hacia la izquierda */
@@ -90,25 +91,25 @@ body, html {
 }
 
 h1 {
-    font-size: 2.5em;
-    margin-bottom: 20px;
+    font-size: 2.5vw;
+    margin-bottom: 2vh;
     color: #333;
 }
 
 .contador {
     display: flex;
-    gap: 10px;
+    gap: 1vw;
     justify-content: center;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 2vh;
 }
 
 .tiempo {
     background: white;
-    border-radius: 8px;
-    padding: 15px 20px;
-    width: 100px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 0.8vw;
+    padding: 1vh 1vw;
+    width: 10vw;
+    box-shadow: 0 0.4vw 1vw rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -116,31 +117,31 @@ h1 {
 }
 
 .numero {
-    font-size: 2.5em;
+    font-size: 2.5vw;
     margin: 0;
     font-weight: bold;
 }
 
 .etiqueta {
-    font-size: 0.9em;
-    margin-top: 5px;
-    letter-spacing: 1px;
+    font-size: 0.9vw;
+    margin-top: 0.5vh;
+    letter-spacing: 0.1vw;
     color: #666;
 }
 
 .separador {
-    font-size: 2em;
+    font-size: 2vw;
     color: #333;
 }
 
 .boton-prueba {
-    padding: 10px 20px;
+    padding: 1vh 2vw;
     background-color: #0072ff;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 0.5vw;
     cursor: pointer;
-    font-size: 1em;
+    font-size: 1vw;
 }
 
 .boton-prueba:hover {
@@ -149,20 +150,20 @@ h1 {
 
 .trompeta {
     position: absolute;
-    width: 100px;
+    width: 10vw;
     transform: rotate(45deg);
     animation: moverTrompeta 1s infinite ease-in-out;
 }
 
 .trompeta.izquierda {
-    top: 10px;
-    left: 10px;
+    top: 2vh;
+    left: 2vw;
     transform: rotate(-20deg);
 }
 
 .trompeta.derecha {
-    top: 10px;
-    right: 10px;
+    top: 2vh;
+    right: 2vw;
     transform: rotate(20deg);
 }
 
@@ -177,8 +178,8 @@ h1 {
 
 .confetti {
     position: fixed;
-    width: 5px;
-    height: 15px;
+    width: 0.5vw;
+    height: 1.5vh;
     background-color: #ff0;
     animation: caer 5s infinite ease-in;
     opacity: 0;
